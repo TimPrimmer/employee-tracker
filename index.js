@@ -40,9 +40,14 @@ const mainMenu = async () => {
   }
 
   else if (answers.selection.charAt(0) === "4") { // Add a department
-    const sql = `SELECT * FROM department`;
-    db.query(sql, (err, rows) => {
-      displayData(rows);
+    const answers = await inquirer.prompt(prompts.questions.addDepartment);
+    const sql = `INSERT INTO department (name)
+    VALUES (?)`;
+    const params = [answers.name];
+
+    db.query(sql, params, (err, result) => {
+      console.log(`The ${answers.name} department has now been added!`)
+      prompts.gatherInfo(); // updates the questions to reflect our new info
       return mainMenu();
     });
   }

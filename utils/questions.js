@@ -84,13 +84,30 @@ const addEmployeeQuestions = [
   }
 ];
 
+// questions for adding an department
+const addDepartmentQuestions = [
+  {
+    type: "input",
+    name: "name",
+    message: "What is the departments name?",
+    validate(value) {
+      if (!value) {
+        console.log("please enter in a name!")
+        return false;
+      }
+      else { return true; }
+    }
+  }
+];
+
 // run the gatherInfo function so we can get our current employees and roles for use in the questions
 gatherInfo();
 
 // questions object holding all question sets
 const questions = {
   menu: mainMenuQuestions,
-  addEmployee: addEmployeeQuestions
+  addEmployee: addEmployeeQuestions,
+  addDepartment: addDepartmentQuestions
 }
 
 module.exports = {questions, gatherInfo};
