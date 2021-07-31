@@ -46,16 +46,21 @@ const mainMenu = async () => {
     const params = [answers.name];
 
     db.query(sql, params, (err, result) => {
-      console.log(`The ${answers.name} department has now been added!`)
+      console.log(`\nThe ${answers.name} department has now been added!\n`)
       prompts.gatherInfo(); // updates the questions to reflect our new info
       return mainMenu();
     });
   }
 
   else if (answers.selection.charAt(0) === "5") { // Add a role
-    const sql = `SELECT * FROM department`;
-    db.query(sql, (err, rows) => {
-      displayData(rows);
+    const answers = await inquirer.prompt(prompts.questions.addRole);
+    const sql = `INSERT INTO role (title, salary, department_id)
+    VALUES (?,?,?)`;
+    const params = [answers.title, answers.salary, Number(answers.department.split('.')[0])];
+
+    db.query(sql, params, (err, result) => {
+      console.log(`\nThe ${answers.title} role has now been added!\n`)
+      prompts.gatherInfo(); // updates the questions to reflect our new info
       return mainMenu();
     });
   }
@@ -67,16 +72,19 @@ const mainMenu = async () => {
     const params = [answers.fname, answers.lname, Number(answers.role.split('.')[0]), Number(answers.manager.split('.')[0])];
 
     db.query(sql, params, (err, result) => {
-      console.log(`Employee ${answers.fname} ${answers.lname} has now been added!`)
+      console.log(`\nEmployee ${answers.fname} ${answers.lname} has now been added!\n`)
       prompts.gatherInfo(); // updates the questions to reflect our new info
       return mainMenu();
     });
   }
 
   else if (answers.selection.charAt(0) === "7") { // Update an employee role
-    const sql = `SELECT * FROM department`;
-    db.query(sql, (err, rows) => {
-      displayData(rows);
+    const answers = await inquirer.prompt(prompts.questions.updateEmployeeRole);
+    const sql = `UPDATE employee SET role_id = ? WHERE id = ?`;
+    const params = [Number(answers.role.split('.')[0]), Number(answers.employee.split('.')[0])];
+    db.query(sql, params, (err, result) => {
+      console.log(`\nEmployee${answers.employee.split('.')[1]} has now been updated!\n`)
+      prompts.gatherInfo(); // updates the questions to reflect our new info
       return mainMenu();
     });
   }

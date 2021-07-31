@@ -1,11 +1,12 @@
 const db = require('../db/connection');
 const employeeList = [];
 const roleList = [];
+const departmentList = [];
 
 const getEmployees = () => {
   const sql = `SELECT * FROM employee`;
   db.query(sql, (err, rows) => {
-    rows.forEach((employee) => { 
+    rows.forEach((employee) => {
       employeeList.push(`${employee.id}. ${employee.first_name} ${employee.last_name}`);
     })
   });
@@ -14,8 +15,17 @@ const getEmployees = () => {
 const getRoles = () => {
   const sql = `SELECT * FROM role`;
   db.query(sql, (err, rows) => {
-    rows.forEach((role) => { 
+    rows.forEach((role) => {
       roleList.push(`${role.id}. ${role.title}`);
+    })
+  });
+};
+
+const getDepartments = () => {
+  const sql = `SELECT * FROM department`;
+  db.query(sql, (err, rows) => {
+    rows.forEach((department) => {
+      departmentList.push(`${department.id}. ${department.name}`);
     })
   });
 };
@@ -23,6 +33,7 @@ const getRoles = () => {
 const gatherInfo = () => {
   getEmployees();
   getRoles();
+  getDepartments();
 }
 
 // questions for the main menu
@@ -100,6 +111,55 @@ const addDepartmentQuestions = [
   }
 ];
 
+// questions for adding an role
+const addRoleQuestions = [
+  {
+    type: "input",
+    name: "title",
+    message: "What is the roles title?",
+    validate(value) {
+      if (!value) {
+        console.log("please enter in a title!")
+        return false;
+      }
+      else { return true; }
+    }
+  },
+  {
+    type: "input",
+    name: "salary",
+    message: "What is the roles salary?",
+    validate(value) {
+      if (!value) {
+        console.log("please enter in a salary!")
+        return false;
+      }
+      else { return true; }
+    }
+  },
+  {
+    type: "list",
+    name: "department",
+    message: "What department does the role belong to?",
+    choices: departmentList
+  }
+];
+
+const updateEmployeeRoleQuestions = [
+  {
+    type: "list",
+    name: "employee",
+    message: "Which employee would you like to update?",
+    choices: employeeList
+  },
+  {
+    type: "list",
+    name: "role",
+    message: "What role would you like them to have?",
+    choices: roleList
+  }
+];
+
 // run the gatherInfo function so we can get our current employees and roles for use in the questions
 gatherInfo();
 
@@ -107,7 +167,9 @@ gatherInfo();
 const questions = {
   menu: mainMenuQuestions,
   addEmployee: addEmployeeQuestions,
-  addDepartment: addDepartmentQuestions
+  addDepartment: addDepartmentQuestions,
+  addRole: addRoleQuestions,
+  updateEmployeeRole: updateEmployeeRoleQuestions
 }
 
-module.exports = {questions, gatherInfo};
+module.exports = { questions, gatherInfo };
