@@ -27,6 +27,27 @@ const queryList = {
 
   updateEmployeeManager: `UPDATE employee 
                           SET manager_id = ? WHERE id = ?`,
+
+  viewEmployeesByManager:  `SELECT a.id, CONCAT(a.first_name, ' ', a.last_name) AS employee, CONCAT(b.first_name, ' ', b.last_name) AS manager
+                            FROM employee a
+                            JOIN employee b 
+                            WHERE a.manager_id = b.id
+                            AND b.id = (?)`,
+
+  viewEmployeesByDepartment: `SELECT  a.id, CONCAT(a.first_name, ' ', a.last_name) AS employee, c.name AS department
+                              FROM employee a
+                              JOIN role b ON a.role_id = b.id
+                              JOIN department c ON b.department_id = c.id
+                              WHERE c.id = (?)
+                              ORDER BY a.id`,
+
+  deleteDepartment: ``,
+
+  deleteRole: ``,
+
+  deleteEmployee: ``,
+
+  viewDepartmentBudget: ``,
 }
 
 module.exports = queryList;

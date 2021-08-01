@@ -76,17 +76,28 @@ const mainMenu = async () => {
     });
   }
   else if (answers.selection.substring(0,2) === "9.") { // View employees by manager
-    
+    const answers = await inquirer.prompt(prompts.questions.viewEmployeesByManager);
+    const params = [Number(answers.manager.split('.')[0])];
+    db.query(queryList.viewEmployeesByManager, params, (err, rows) => {
+      displayData(rows);
+      return mainMenu();
+    });
   }
-  else if (answers.selection.substring(0,2) === "10.") { // View employees by department
+  else if (answers.selection.substring(0,2) === "10") { // View employees by department
+    const answers = await inquirer.prompt(prompts.questions.viewEmployeesByDepartment);
+    const params = [Number(answers.department.split('.')[0])];
+    db.query(queryList.viewEmployeesByDepartment, params, (err, rows) => {
+      displayData(rows);
+      return mainMenu();
+    });
   }
-  else if (answers.selection.substring(0,2) === "11.") { // Delete department
+  else if (answers.selection.substring(0,2) === "11") { // Delete department
   }
-  else if (answers.selection.substring(0,2) === "12.") { // Delete role
+  else if (answers.selection.substring(0,2) === "12") { // Delete role
   }
-  else if (answers.selection.substring(0,2) === "13.") { // Delete employee
+  else if (answers.selection.substring(0,2) === "13") { // Delete employee
   }
-  else if (answers.selection.substring(0,2) === "14.") { // View budget of department
+  else if (answers.selection.substring(0,2) === "14") { // View budget of department
   }
   else if (answers.selection.substring(0,2) === "15") { // Quit
     process.exit(0); // closes the node program

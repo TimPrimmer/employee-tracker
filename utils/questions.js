@@ -184,6 +184,57 @@ const updateEmployeeManagerQuestions = [
   }
 ];
 
+// questions for querying all employees from a given manager
+const viewEmployeesByManagerQuestions = [
+  {
+    type: "list",
+    name: "manager",
+    message: "Which manager would you like to query?",
+    choices: employeeList
+  }
+];
+
+// questions for querying all employees from a given department
+const viewEmployeesByDepartmentQuestions = [
+  {
+    type: "list",
+    name: "department",
+    message: "Which department would you like to query?",
+    choices: departmentList
+  }
+];
+
+// questions for deleting a department
+const deleteDepartmentQuestions = [
+  {
+    type: "list",
+    name: "department",
+    message: "Which department would you like to delete?",
+    choices: departmentList
+  }
+];
+
+// questions for deleting a role
+const deleteRoleQuestions = [
+  {
+    type: "list",
+    name: "role",
+    message: "Which role would you like to delete?",
+    choices: roleList
+  }
+];
+
+// questions for deleting a employee
+const deleteEmployeeQuestions = [
+  {
+    type: "list",
+    name: "employee",
+    message: "Which employee would you like to delete?",
+    choices: employeeList
+  }
+];
+
+
 // run the gatherInfo function so we can get our current employees and roles for use in the questions
 gatherInfo();
 
@@ -194,7 +245,12 @@ const questions = {
   addDepartment: addDepartmentQuestions,
   addRole: addRoleQuestions,
   updateEmployeeRole: updateEmployeeRoleQuestions,
-  updateEmployeeManager: updateEmployeeManagerQuestions
+  updateEmployeeManager: updateEmployeeManagerQuestions,
+  viewEmployeesByManager: viewEmployeesByManagerQuestions,
+  viewEmployeesByDepartment: viewEmployeesByDepartmentQuestions,
+  deleteDepartment: deleteDepartmentQuestions,
+  deleteRole: deleteRoleQuestions,
+  deleteEmployee: deleteEmployeeQuestions
 }
 
 module.exports = { questions, gatherInfo };
