@@ -49,8 +49,15 @@ const mainMenuQuestions = [
       "4. Add a department",
       "5. Add a role",
       "6. Add an employee",
-      "7. Update an employee role",
-      "8. Quit"
+      "7. Update employee role",
+      "8. Update employee manager",
+      "9. View employees by manager",
+      "10. View employees by department",
+      "11. Delete department",
+      "12. Delete role",
+      "13. Delete employee",
+      "14. View budget of department",
+      "15. Quit"
     ]
   }
 ];
@@ -145,6 +152,7 @@ const addRoleQuestions = [
   }
 ];
 
+// questions for update an employees role
 const updateEmployeeRoleQuestions = [
   {
     type: "list",
@@ -160,6 +168,22 @@ const updateEmployeeRoleQuestions = [
   }
 ];
 
+// questions for update an employees manager
+const updateEmployeeManagerQuestions = [
+  {
+    type: "list",
+    name: "employee",
+    message: "Which employee would you like to update?",
+    choices: employeeList
+  },
+  {
+    type: "list",
+    name: "manager",
+    message: "Who is their manager?",
+    choices: employeeList
+  }
+];
+
 // run the gatherInfo function so we can get our current employees and roles for use in the questions
 gatherInfo();
 
@@ -169,7 +193,8 @@ const questions = {
   addEmployee: addEmployeeQuestions,
   addDepartment: addDepartmentQuestions,
   addRole: addRoleQuestions,
-  updateEmployeeRole: updateEmployeeRoleQuestions
+  updateEmployeeRole: updateEmployeeRoleQuestions,
+  updateEmployeeManager: updateEmployeeManagerQuestions
 }
 
 module.exports = { questions, gatherInfo };

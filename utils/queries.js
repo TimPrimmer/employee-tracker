@@ -1,5 +1,4 @@
 const queryList = {
-
   viewAllDepartments: `SELECT * FROM department`,
 
   viewAllRoles: ` SELECT a.id, a.title, a.salary, b.name AS department
@@ -23,9 +22,11 @@ const queryList = {
   addEmployee: `INSERT INTO employee (first_name, last_name, role_id, manager_id)
                 VALUES (?,?,?,?)`,
 
-  updateEmployee: `UPDATE employee 
-                  SET role_id = ? WHERE id = ?`
+  updateEmployeeRole: `UPDATE employee 
+                       SET role_id = ? WHERE id = ?`,
 
+  updateEmployeeManager: `UPDATE employee 
+                          SET manager_id = ? WHERE id = ?`,
 }
 
 module.exports = queryList;
