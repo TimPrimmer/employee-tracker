@@ -31,6 +31,10 @@ const getDepartments = () => {
 };
 
 const gatherInfo = () => {
+  employeeList.splice(0, employeeList.length); // resetting the arrays so we dont constantly add to them
+  roleList.splice(0, roleList.length);
+  departmentList.splice(0, departmentList.length);
+  
   getEmployees();
   getRoles();
   getDepartments();
@@ -234,6 +238,15 @@ const deleteEmployeeQuestions = [
   }
 ];
 
+// questions for determining department budget
+const viewDepartmentBudgetQuestions = [
+  {
+    type: "list",
+    name: "department",
+    message: "Which department would you like to query?",
+    choices: departmentList
+  }
+];
 
 // run the gatherInfo function so we can get our current employees and roles for use in the questions
 gatherInfo();
@@ -250,7 +263,8 @@ const questions = {
   viewEmployeesByDepartment: viewEmployeesByDepartmentQuestions,
   deleteDepartment: deleteDepartmentQuestions,
   deleteRole: deleteRoleQuestions,
-  deleteEmployee: deleteEmployeeQuestions
+  deleteEmployee: deleteEmployeeQuestions,
+  viewDepartmentBudget: viewDepartmentBudgetQuestions
 }
 
 module.exports = { questions, gatherInfo };

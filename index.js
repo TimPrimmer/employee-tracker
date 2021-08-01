@@ -92,12 +92,39 @@ const mainMenu = async () => {
     });
   }
   else if (answers.selection.substring(0,2) === "11") { // Delete department
+    const answers = await inquirer.prompt(prompts.questions.deleteDepartment);
+    const params = [Number(answers.department.split('.')[0])];
+    db.query(queryList.deleteDepartment, params, (err, result) => {
+      console.log(`\nDepartment${answers.department.split('.')[1]} has now been deleted!\n`)
+      prompts.gatherInfo(); // updates the questions to reflect our new info
+      return mainMenu();
+    });
   }
   else if (answers.selection.substring(0,2) === "12") { // Delete role
+    const answers = await inquirer.prompt(prompts.questions.deleteRole);
+    const params = [Number(answers.role.split('.')[0])];
+    db.query(queryList.deleteRole, params, (err, result) => {
+      console.log(`\nRole${answers.role.split('.')[1]} has now been deleted!\n`)
+      prompts.gatherInfo(); // updates the questions to reflect our new info
+      return mainMenu();
+    });
   }
   else if (answers.selection.substring(0,2) === "13") { // Delete employee
+    const answers = await inquirer.prompt(prompts.questions.deleteEmployee);
+    const params = [Number(answers.employee.split('.')[0])];
+    db.query(queryList.deleteEmployee, params, (err, result) => {
+      console.log(`\nEmployee${answers.employee.split('.')[1]} has now been deleted!\n`)
+      prompts.gatherInfo(); // updates the questions to reflect our new info
+      return mainMenu();
+    });
   }
   else if (answers.selection.substring(0,2) === "14") { // View budget of department
+    const answers = await inquirer.prompt(prompts.questions.viewDepartmentBudget);
+    const params = [Number(answers.department.split('.')[0])];
+    db.query(queryList.viewDepartmentBudget, params, (err, rows) => {
+      displayData(rows);
+      return mainMenu();
+    });
   }
   else if (answers.selection.substring(0,2) === "15") { // Quit
     process.exit(0); // closes the node program
